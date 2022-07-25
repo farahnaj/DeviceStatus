@@ -1,0 +1,36 @@
+version: '3'
+services:
+  server:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: devicestatus
+    ports:
+      - "8080:8080"
+    environment:
+      - "SPRING_PROFILES_ACTIVE=stage"
+  postgres:
+      image: postgres:14.2-alpine
+      restart: always
+      environment:
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=postgres
+      logging:
+        options:
+          max-size: 10m
+          max-file: "3"
+      ports:
+        - '5432:5432'
+      volumes:
+        - ./db/init.sql:/docker-entrypoint-initdb.d/creates_tables.sql
+        - db:/var/lib/postgres/data
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    image: frontend 
+    ports:
+      - "3000:3000"
+ 
+volumes:
+  db:
