@@ -32,4 +32,5 @@ docker-compose up
 * It will run Backend server with DB and Frontend.
 * 2 Users will be craeted "farah" and "rohit"
 * Devices with ids {1,2,3,4} will be created
+* Health is Enum class: [ERROR, OK, WARNING], comming soon as drop down in UI.
 * Some device statuses will be created for demo of search.
